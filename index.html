@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>С днём рождения, Анечка!</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;600;700&family=Marck+Script&display=swap" rel="stylesheet">
+  <style>
+    /* ===== БАЗА ===== */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --pink-soft: #ffe4ec;
+      --pink: #ffb6c1;
+      --pink-deep: #ff8fab;
+      --pink-dark: #e75480;
+      --white: #ffffff;
+      --text: #4a2c35;
+      --shadow: 0 10px 40px rgba(255, 143, 171, 0.25);
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Comfortaa', cursive;
+      background: linear-gradient(135deg, #fff5f8 0%, #ffe4ec 100%);
+      color: var(--text);
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+
+    /* ===== ДЕКОР: ЛЕТЯЩИЕ СЕРДЕЧКИ ===== */
+    .hearts-bg {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+    .hearts-bg span {
+      position: absolute;
+      font-size: 20px;
+      color: var(--pink-deep);
+      opacity: 0.35;
+      animation: floatUp linear infinite;
+    }
+    @keyframes floatUp {
+      0% { transform: translateY(100vh) scale(0.5) rotate(0deg); opacity: 0; }
+      10% { opacity: 0.5; }
+      100% { transform: translateY(-10vh) scale(1.2) rotate(360deg); opacity: 0; }
+    }
+
+    /* ===== ШАПКА ===== */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(255, 255, 255, 0.8);
+      backdrop-filter: blur(12px);
+      border-bottom: 2px solid var(--pink-soft);
+      padding: 15px 0;
+    }
+
+    .nav-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .logo {
+      font-size: 26px;
+      font-weight: 700;
+      color: var(--pink-dark);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .logo span { font-size: 28px; }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    nav a {
+      text-decoration: none;
+      color: var(--text);
+      font-weight: 600;
+      font-size: 14px;
+      padding: 8px 16px;
+      border-radius: 50px;
+      transition: all 0.3s ease;
+      display: inline-block;
+    }
+    nav a:hover {
+      background: var(--pink-deep);
+      color: white;
+      transform: translateY(-2px);
+    }
+
+    /* ===== ГЕРОЙ-СЕКЦИЯ ===== */
+    .hero {
+      position: relative;
+      z-index: 1;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 60px 24px 80px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 50px;
+      align-items: center;
+    }
+
+    .hero-text h1 {
+      font-size: clamp(2rem, 5vw, 3.4rem);
+      line-height: 1.15;
+      color: var(--pink-dark);
+      margin-bottom: 20px;
+    }
+    .hero-text h1 .script {
+      font-family: 'Marck Script', cursive;
+      font-size: 1.3em;
+      display: block;
+      color: var(--pink-deep);
+    }
+    .hero-text p {
+      font-size: 17px;
+      margin-bottom: 30px;
+      color: #6d4a55;
+      max-width: 480px;
+    }
+
+    .btn-primary {
+      display: inline-block;
+      background: linear-gradient(135deg, var(--pink-deep), var(--pink-dark));
+      color: white;
+      padding: 16px 38px;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 16px;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 8px 25px rgba(231, 84, 128, 0.4);
+      transition: all 0.3s ease;
+    }
+    .btn-primary:hover {
+      transform: translateY(-4px) scale(1.03);
+      box-shadow: 0 14px 35px rgba(231, 84, 128, 0.55);
+    }
+
+    .hero-photo {
+      position: relative;
+      display: flex;
+      justify-content: center;
+    }
+    .hero-photo .photo-frame {
+      width: 100%;
+      max-width: 400px;
+      aspect-ratio: 4/5;
+      border-radius: 30px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      border: 8px solid white;
+      transform: rotate(3deg);
+      transition: transform 0.5s ease;
+    }
+    .hero-photo .photo-frame:hover {
+      transform: rotate(0deg) scale(1.02);
+    }
+    .hero-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .hero-photo::before {
+      content: '💖';
+      position: absolute;
+      font-size: 50px;
+      top: -20px;
+      right: 10%;
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.25); }
+    }
+
+    /* ===== СЕКЦИИ ===== */
+    section {
+      position: relative;
+      z-index: 1;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 70px 24px;
+    }
+
+    .section-title {
+      text-align: center;
+      font-size: clamp(1.6rem, 4vw, 2.4rem);
+      color: var(--pink-dark);
+      margin-bottom: 12px;
+    }
+    .section-subtitle {
+      text-align: center;
+      color: #9a6b78;
+      margin-bottom: 50px;
+      font-size: 16px;
+    }
+
+    /* ===== КАРТОЧКИ "ЗА ЧТО ЛЮБЛЮ" ===== */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 24px;
+    }
+
+    .card {
+      background: white;
+      border-radius: 24px;
+      padding: 32px 26px;
+      box-shadow: 0 8px 30px rgba(255, 143, 171, 0.15);
+      border: 2px solid var(--pink-soft);
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      position: relative;
+      overflow: hidden;
+    }
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 5px;
+      background: linear-gradient(90deg, var(--pink), var(--pink-dark));
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.4s ease;
+    }
+    .card:hover::before { transform: scaleX(1); }
+    .card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 20px 45px rgba(255, 143, 171, 0.3);
+    }
+    .card .emoji {
+      font-size: 42px;
+      display: block;
+      margin-bottom: 16px;
+    }
+    .card h3 {
+      color: var(--pink-dark);
+      margin-bottom: 10px;
+      font-size: 19px;
+    }
+    .card p {
+      font-size: 15px;
+      color: #6d4a55;
+    }
+
+    /* ===== ГАЛЕРЕЯ ===== */
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 18px;
+    }
+    .gallery-item {
+      border-radius: 20px;
+      overflow: hidden;
+      aspect-ratio: 1;
+      box-shadow: 0 8px 25px rgba(255, 143, 171, 0.2);
+      border: 5px solid white;
+      transition: all 0.4s ease;
+      cursor: pointer;
+    }
+    .gallery-item:hover {
+      transform: scale(1.05) rotate(-1deg);
+      box-shadow: 0 15px 40px rgba(255, 143, 171, 0.4);
+    }
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.5s ease;
+    }
+    .gallery-item:hover img {
+      transform: scale(1.1);
+    }
+
+    /* ===== ПИСЬМО ===== */
+    .letter {
+      background: white;
+      border-radius: 28px;
+      padding: clamp(30px, 5vw, 60px);
+      box-shadow: var(--shadow);
+      border: 2px solid var(--pink-soft);
+      position: relative;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    .letter::before {
+      content: '💌';
+      position: absolute;
+      top: -25px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 45px;
+      background: white;
+      padding: 0 15px;
+    }
+    .letter p {
+      font-size: 16px;
+      margin-bottom: 16px;
+      color: #5a3a44;
+    }
+    .letter .signature {
+      font-family: 'Marck Script', cursive;
+      font-size: 30px;
+      color: var(--pink-dark);
+      text-align: right;
+      margin-top: 20px;
+    }
+
+    /* ===== КНОПКА-СЮРПРИЗ ===== */
+    .surprise-section {
+      text-align: center;
+      background: linear-gradient(135deg, var(--pink-soft), #fff);
+      border-radius: 30px;
+      padding: 60px 30px;
+      border: 2px dashed var(--pink-deep);
+    }
+    .surprise-section h2 {
+      color: var(--pink-dark);
+      margin-bottom: 16px;
+    }
+    .surprise-section p {
+      margin-bottom: 30px;
+      color: #6d4a55;
+    }
+
+    #surpriseBox {
+      margin-top: 30px;
+      font-family: 'Marck Script', cursive;
+      font-size: clamp(24px, 4vw, 38px);
+      color: var(--pink-dark);
+      min-height: 60px;
+      transition: all 0.5s ease;
+    }
+    .hidden { opacity: 0; transform: scale(0.8); }
+    .visible { opacity: 1; transform: scale(1); }
+
+    /* ===== ФУТЕР ===== */
+    footer {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      padding: 40px 24px;
+      background: white;
+      border-top: 2px solid var(--pink-soft);
+      color: #9a6b78;
+      font-size: 14px;
+    }
+    footer .heart {
+      color: var(--pink-dark);
+      animation: pulse 1.5s infinite;
+      display: inline-block;
+    }
+
+    /* ===== АДАПТИВ ===== */
+    @media (max-width: 860px) {
+      .hero {
+        grid-template-columns: 1fr;
+        text-align: center;
+        padding-top: 40px;
+      }
+      .hero-text p { margin: 0 auto 30px; }
+      .hero-photo .photo-frame { transform: rotate(0deg); }
+    }
+    @media (max-width: 500px) {
+      nav ul { justify-content: center; width: 100%; }
+      .nav-container { justify-content: center; }
+      .card { padding: 26px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ЛЕТЯЩИЕ СЕРДЕЧКИ -->
+  <div class="hearts-bg" id="heartsBg"></div>
+
+  <!-- ШАПКА -->
+  <header>
+    <div class="nav-container">
+      <div class="logo"><span>💗</span> С днём рождения, Анечка!</div>
+      <nav>
+        <ul>
+          <li><a href="#love">За что люблю</a></li>
+          <li><a href="#qualities">Лучшие качества</a></li>
+          <li><a href="#gallery">Галерея</a></li>
+          <li><a href="#letter">Письмо</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ГЕРОЙ -->
+  <div class="hero">
+    <div class="hero-text">
+      <h1>
+        Ты — <span class="script">самая лучшая</span>
+        на свете
+      </h1>
+      <p>
+        Это не просто сайт. Это маленький цифровой подарок, собранный из 
+        нежности, тепла и всех слов, которые я так хочу тебе сказать. 
+        Добро пожаловать в мир, созданный специально для тебя.
+      </p>
+      <a href="#love" class="btn-primary">Начать путешествие 💕</a>
+    </div>
+    <div class="hero-photo">
+      <div class="photo-frame">
+        <!-- ЗАМЕНИ ЭТУ ССЫЛКУ НА СВОЁ ФОТО -->
+        <img src="images/hero.jpg" alt="Моя любимая">
+      </div>
+    </div>
+  </div>
+
+  <!-- ЗА ЧТО Я ТЕБЯ ПОЛЮБИЛ -->
+  <section id="love">
+    <h2 class="section-title">За что я тебя полюбил</h2>
+    <p class="section-subtitle">Каждый пункт — это маленькая история о тебе</p>
+    <div class="cards-grid">
+      <div class="card">
+        <span class="emoji">😊</span>
+        <h3>За твою улыбку</h3>
+        <p>Она освещает всё вокруг и делает даже самый пасмурный день тёплым и солнечным.</p>
+      </div>
+      <div class="card">
+        <span class="emoji">💬</span>
+        <h3>За твой голос</h3>
+        <p>Самый родной звук на свете. С тобой можно говорить часами и никогда не уставать.</p>
+      </div>
+      <div class="card">
+        <span class="emoji">🤗</span>
+        <h3>За твою заботу</h3>
+        <p>Ты чувствуешь меня без слов и всегда оказываешься рядом именно тогда, когда нужно.</p>
+      </div>
+      <div class="card">
+        <span class="emoji">✨</span>
+        <h3>За то, что ты — ты</h3>
+        <p>Настоящая, искренняя, уникальная. Такой больше нет и не будет во всей вселенной.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ТВОИ ЛУЧШИЕ КАЧЕСТВА -->
+  <section id="qualities">
+    <h2 class="section-title">Твои лучшие качества</h2>
+    <p class="section-subtitle">То, чем я восхищаюсь каждый день</p>
+    <div class="cards-grid">
+      <div class="card">
+        <span class="emoji">💖</span>
+        <h3>Доброта</h3>
+        <p>Твоё сердце способно согреть кого угодно. Ты даришь тепло всем, кто рядом.</p>
+      </div>
+      <div class="card">
+        <span class="emoji">🧠</span>
+        <h3>Ум и мудрость</h3>
+        <p>С тобой всегда интересно. Ты умеешь видеть глубже и находить правильные решения.</p>
+      </div>
+      <div class="card">
+        <span class="emoji">🌟</span>
+        <h3>Целеустремлённость</h3>
+        <p>Ты не сдаёшься и идёшь к своим мечтам. Это невероятно вдохновляет меня.</p>
+      </div>
+      <div class="card">
+        <span class="emoji">😂</span>
+        <h3>Чувство юмора</h3>
+        <p>С тобой смешно даже в самые серьёзные моменты. Ты умеешь зажечь и рассмешить.</p>
+      </div>
+      <div class="card">
+        <span class="emoji">🎨</span>
+        <h3>Творчество</h3>
+        <p>Ты видишь красоту там, где другие проходят мимо. В тебе живёт настоящий художник.</p>
+      </div>
+      <div class="card">
+        <span class="emoji">🤍</span>
+        <h3>Искренность</h3>
+        <p>С тобой не нужно играть роли. Ты принимаешь меня таким, какой я есть.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ГАЛЕРЕЯ -->
+  <section id="gallery">
+    <h2 class="section-title">Моменты счастья</h2>
+    <p class="section-subtitle">Каждая фотография — отдельная история любви</p>
+    <div class="gallery">
+      <!-- ЗАМЕНИ ССЫЛКИ НА СВОИ ФОТО -->
+      <div class="gallery-item"><img src="images/photo1.jpg" alt="Фото 1"></div>
+      <div class="gallery-item"><img src="images/photo2.jpg" alt="Фото 2"></div>
+      <div class="gallery-item"><img src="images/photo3.jpg" alt="Фото 3"></div>
+      <div class="gallery-item"><img src="images/photo4.jpg" alt="Фото 4"></div>
+      <div class="gallery-item"><img src="images/photo5.jpg" alt="Фото 5"></div>
+      <div class="gallery-item"><img src="images/photo6.jpg" alt="Фото 6"></div>
+    </div>
+  </section>
+
+  <!-- ПИСЬМО -->
+  <section id="letter">
+    <h2 class="section-title">Письмо для тебя</h2>
+    <p class="section-subtitle">Слова, которые идут от самого сердца</p>
+    <div class="letter">
+      <p>Моя любимая,</p>
+      <p>
+        С каждым днём я всё больше понимаю, насколько мне повезло. Ты появилась 
+        в моей жизни и наполнила её светом, которого мне так не хватало. Рядом 
+        с тобой я стал лучше, добрее и счастливее.
+      </p>
+      <p>
+        Спасибо тебе за каждый смех, за каждое объятие, за каждое «доброе утро» 
+        и «спокойной ночи». Спасибо за терпение и за то, что ты всегда рядом. 
+        Я обещаю беречь тебя, поддерживать и любить всем сердцем.
+      </p>
+      <p>
+        Ты — моё самое большое чудо. И я хочу, чтобы ты знала это всегда. 💗
+      </p>
+      <div class="signature">Твой Михалыч</div>
+    </div>
+  </section>
+
+  <!-- СЮРПРИЗ -->
+  <section>
+    <div class="surprise-section">
+      <h2>А теперь нажми на кнопку 👇</h2>
+      <p>Там спрятано кое-что важное...</p>
+      <button class="btn-primary" id="surpriseBtn">Открыть сюрприз 💝</button>
+      <div id="surpriseBox" class="hidden"></div>
+    </div>
+  </section>
+
+  <!-- ФУТЕР -->
+  <footer>
+    Сделано с <span class="heart">♥</span> специально для тебя • От Михалыча © 2026
+  </footer>
+
+  <script>
+    // ===== ЛЕТЯЩИЕ СЕРДЕЧКИ =====
+    const heartsBg = document.getElementById('heartsBg');
+    const heartChars = ['❤️', '💕', '💖', '💗', '🌸', '✨'];
+    for (let i = 0; i < 18; i++) {
+      const span = document.createElement('span');
+      span.textContent = heartChars[Math.floor(Math.random() * heartChars.length)];
+      span.style.left = Math.random() * 100 + '%';
+      span.style.fontSize = (14 + Math.random() * 22) + 'px';
+      span.style.animationDuration = (10 + Math.random() * 15) + 's';
+      span.style.animationDelay = (Math.random() * 15) + 's';
+      heartsBg.appendChild(span);
+    }
+
+    // ===== КНОПКА СЮРПРИЗ =====
+    const btn = document.getElementById('surpriseBtn');
+    const box = document.getElementById('surpriseBox');
+    const messages = [
+      'Я тебя очень-очень люблю! 💖',
+      'Ты моё всё. Навсегда. 💕',
+      'Спасибо, что ты есть. 🌸',
+      'Ты — лучшее, что со мной случилось! ✨'
+    ];
+    let msgIndex = 0;
+
+    btn.addEventListener('click', () => {
+      box.classList.remove('hidden');
+      box.classList.add('visible');
+      box.textContent = messages[msgIndex];
+      msgIndex = (msgIndex + 1) % messages.length;
+    });
+
+    // ===== ПЛАВНОЕ ПОЯВЛЕНИЕ СЕКЦИЙ =====
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('section, .hero').forEach(el => {
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(40px)';
+      el.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+      observer.observe(el);
+    });
+  </script>
+</body>
+</html>
